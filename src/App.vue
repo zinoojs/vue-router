@@ -1,13 +1,19 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view />
+    <TheNavigator />
+    <transition name="slide" mode="out-in">
+      <router-view :key="$route.path" />
+    </transition>
   </div>
 </template>
-
+<script>
+import TheNavigator from "./components/TheNavigator";
+export default {
+  components: {
+    TheNavigator
+  }
+};
+</script>
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -16,17 +22,13 @@
   text-align: center;
   color: #2c3e50;
 }
-
-#nav {
-  padding: 30px;
+.slide-enter-active,
+.slide-leave-active {
+  transition: opacity 1s, transform 1s;
 }
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
+.slide-enter,
+.slide-leave-to {
+  opacity: 0;
+  transform: translateY(-30%);
 }
 </style>
